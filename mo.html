@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title> Aniversário da minha esposa perfeitaaaa</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom, #fce4ec, #f8bbd0);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+
+    .title {
+      font-size: 2em;
+      color: #880e4f;
+      margin-bottom: 20px;
+      text-align: center;
+      text-shadow: 1px 1px 2px #fff;
+    }
+
+    .clock {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      border: 10px solid #fff;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff, #f8bbd0);
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1000px;
+    }
+
+    .time {
+      font-size: 2em;
+      color: #880e4f;
+      text-align: center;
+    }
+
+    .message {
+      position: absolute;
+      top: 20px;
+      font-size: 2em;
+      color: #d81b60;
+      display: none;
+      animation: pop 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes pop {
+      from { transform: scale(1); }
+      to { transform: scale(1.1); }
+    }
+
+    .firework, .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-200px) scale(0.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="title">CONTAGEM REGRESSIVA PARA O ANIVERSÁRIO DA MINHA ESPOSA PERFEITA</div>
+  <div class="clock">
+    <div class="time" id="time">00:00:00</div>
+    <div class="message" id="message">Feliz aniversárioooo amor da minha vida. Te amoooo, minha vida 🎉💖 🎉💖</div>
+  </div>
+
+  <script>
+    const timeElement = document.getElementById('time');
+    const messageElement = document.getElementById('message');
+    const targetDate = new Date('2025-05-22T00:00:00');
+
+    function updateTime() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        timeElement.style.display = 'none';
+        messageElement.style.display = 'block';
+        launchCelebration();
+        clearInterval(timer);
+        return;
+      }
+
+      const hours = String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, '0');
+      const minutes = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0');
+      const seconds = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
+
+      timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+    function launchCelebration() {
+      for (let i = 0; i < 50; i++) {
+        const firework = document.createElement('div');
+        firework.classList.add('firework');
+        firework.style.left = Math.random() * window.innerWidth + 'px';
+        firework.style.top = Math.random() * window.innerHeight + 'px';
+        firework.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        document.body.appendChild(firework);
+
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        heart.style.top = Math.random() * window.innerHeight + 'px';
+        heart.style.background = `hsl(${Math.random() * 360}, 100%, 70%)`;
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          firework.remove();
+          heart.remove();
+        }, 2000);
+      }
+    }
+
+    const timer = setInterval(updateTime, 1000);
+    updateTime();
+  </script>
+</body>
+</html>
